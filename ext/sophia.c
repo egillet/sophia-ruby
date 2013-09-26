@@ -71,7 +71,7 @@ sophia_initialize(int argc, VALUE *argv, VALUE self)
     }
 
     if (sp_ctl(sophia->env, SPDIR, SPO_CREAT|SPO_RDWR, RSTRING_PTR(file))) {
-        rb_raise(rb_eStandardError, (const char*)sp_error(sophia->env));
+        rb_raise(rb_eStandardError, sp_error(sophia->env));
     }
 
     sophia->db = sp_open(sophia->env);
@@ -212,7 +212,7 @@ sophia_each(VALUE self)
   void *cursor = sp_cursor(sophia->db, SPGT, NULL, 0);
   if (cursor == NULL) 
   {
-    rb_raise(rb_eStandardError, (const char*)sp_error(sophia->env));
+    rb_raise(rb_eStandardError, sp_error(sophia->env));
   }  
   while (sp_fetch(cursor))
   {
@@ -238,7 +238,7 @@ sophia_to_a(VALUE self)
   void *cursor = sp_cursor(sophia->db, SPGT, NULL, 0);
   if (cursor == NULL) 
   {
-    rb_raise(rb_eStandardError, (const char*)sp_error(sophia->env));
+    rb_raise(rb_eStandardError, sp_error(sophia->env));
   }
   int idx = 0;
   while (sp_fetch(cursor))
@@ -265,7 +265,7 @@ sophia_to_h(VALUE self)
   void *cursor = sp_cursor(sophia->db, SPGT, NULL, 0);
   if (cursor == NULL) 
   {
-    rb_raise(rb_eStandardError, (const char*)sp_error(sophia->env));
+    rb_raise(rb_eStandardError, sp_error(sophia->env));
   }  
   while (sp_fetch(cursor))
   {
